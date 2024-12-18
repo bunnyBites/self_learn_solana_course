@@ -6,6 +6,7 @@ import {
   TransactionInstruction,
   Transaction,
   sendAndConfirmTransaction,
+  SystemProgram,
 } from "@solana/web3.js";
 import "dotenv/config";
 import { airdropIfRequired, getKeypairFromEnvironment } from "@solana-developers/helpers";
@@ -41,3 +42,28 @@ const pingTransaction = new Transaction().add(pingInstruction);
 const pingSignature = await sendAndConfirmTransaction(connection, pingTransaction, [ourAccount]);
 
 console.log("The ping is successfull: ", pingSignature);
+
+const transferTransaction = new Transaction();
+
+const transferInstruction = new TransactionInstruction({
+  programId: SystemProgram.programId,
+  keys: [
+    {
+      pubkey: ourAccount.publicKey,
+      isSigner: true,
+      isWritable: true,
+    },
+    {
+      pubkey: new PublicKey(process.env.RECIEVER_PUBKEY),
+      isSigner: false,
+      isWritable: true,
+    }
+  ],
+  //data: //Don't know an easy way to do this
+});
+
+transferTransaction.add(transferInstruction);
+
+const transferSignature = await sendAndConfirmTransaction(connection, transferTransaction, [ourAccount]);
+
+console.log("Transfer Sol successfully without SystemProgram helper: ", transferSignature);
