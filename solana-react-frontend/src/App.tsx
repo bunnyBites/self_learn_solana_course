@@ -1,5 +1,10 @@
-function App() {
-  return <h2>hello</h2>;
-}
+import { AppBar } from "./components/AppBar.component";
+import { PingContainer } from "./components/PingContainer.component";
+import { WalletContextProvider } from "./components/WallerContext.provider";
 
-export default App;
+export const App = () => (
+  <WalletContextProvider>
+    <AppBar />
+    <PingContainer />
+  </WalletContextProvider>
+);
