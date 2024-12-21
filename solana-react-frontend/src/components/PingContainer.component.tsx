@@ -42,7 +42,7 @@ export const PingContainer: React.FC = () => {
   return (
     <div className="container-fluid">
       <div className="d-flex align-items-center justify-content-center my-5">
-        <button onClick={onClickPing} className="btn btn-success" type="button">
+        <button onClick={onClickPing} className="btn btn-primary" type="button">
           Ping!!
         </button>
       </div>
